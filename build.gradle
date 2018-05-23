@@ -4,3 +4,31 @@
  * This is a general purpose Gradle build.
  * Learn how to create Gradle builds at https://guides.gradle.org/creating-new-gradle-builds/
  */
+plugins {
+  id 'com.aoe.jenkins-job-dsl' version '2.3.0'
+}
+
+dependencies {
+    // Example for using additional Jenkins plugins that provide their own
+    // Job DSL support or to use them with the Generated DSL feature:
+    // jenkinsPlugin 'com.aoe.jenkins:scm-push-trigger:1.1.0'
+    jenkinsPlugin 'org.jenkins-ci.plugins:cloudbees-folder:6.4'
+
+    // Example for using external libraries in the DSL scripts themselves:
+    compile 'com.google.guava:guava:18.0'
+}
+
+jobDsl {
+    // Base directory where the DSL scripts reside
+    sourceDir 'src/jobs'
+
+    // Aditional non-DSL-script resources needed from the DSL scripts
+    resourceDir 'src/configs'
+
+    // Version of Job DSL you want to use
+    version = '1.69' // default
+
+    // By default jcenter and jenkins-public are added as repositories
+    // If you don't like this set it to false
+    addRepositories = true // default
+}
