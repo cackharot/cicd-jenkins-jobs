@@ -2,14 +2,22 @@ plugins {
   id 'com.aoe.jenkins-job-dsl' version '2.3.0'
 }
 
+// Exclude buggy Xalan dependency this way the JRE default TransformerFactory is used
+// The xalan pulled in by htmlunit does not properly deal with spaces folder / job names
+configurations.all*.exclude group: 'xalan'
+
 dependencies {
     // Example for using additional Jenkins plugins that provide their own
     // Job DSL support or to use them with the Generated DSL feature:
     // jenkinsPlugin 'com.aoe.jenkins:scm-push-trigger:1.1.0'
     jenkinsPlugin 'org.jenkins-ci.plugins:cloudbees-folder:6.4'
 
-    // Example for using external libraries in the DSL scripts themselves:
+    compile('org.codehaus.groovy.modules.http-builder:http-builder:0.7.2') {
+        exclude(module: 'groovy')
+    }
+    compile 'org.kohsuke:github-api:1.93'
     compile 'com.google.guava:guava:18.0'
+    compile group: 'commons-io', name: 'commons-io', version: '2.4'
 }
 
 jobDsl {
@@ -20,9 +28,19 @@ jobDsl {
     resourceDir 'src/configs'
 
     // Version of Job DSL you want to use
-    version = '1.69' // default
+    version = "${jobDslVersion}" // default
 
     // By default jcenter and jenkins-public are added as repositories
     // If you don't like this set it to false
     addRepositories = true // default
+}
+
+task rest(dependsOn: 'classes', type: JavaExec) {
+    main = 'org.cackharot.jenkins.dsl.RestApiJobUploader'
+    classpath = sourceSets.main.runtimeClasspath
+    systemProperties System.getProperties()
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.7'
 }
