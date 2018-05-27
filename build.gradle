@@ -1,5 +1,5 @@
 plugins {
-  id 'com.aoe.jenkins-job-dsl' version '2.3.0'
+    id 'com.aoe.jenkins-job-dsl' version '2.3.0'
 }
 
 // Exclude buggy Xalan dependency this way the JRE default TransformerFactory is used
@@ -17,7 +17,8 @@ dependencies {
     }
     compile 'org.kohsuke:github-api:1.93'
     compile 'com.google.guava:guava:18.0'
-    compile group: 'commons-io', name: 'commons-io', version: '2.4'
+    compile 'org.apache.ant:ant:1.9.7'
+    compile 'commons-io:commons-io:2.4'
 }
 
 jobDsl {
