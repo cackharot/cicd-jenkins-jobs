@@ -6,16 +6,3 @@ class JobBaseModel {
   JobType type
   List<String> triggers
 }
-
-class BuildJobModel extends JobBaseModel{
-  String repoName
-  String repoBaseUrl
-}
-
-class DeployJobModel extends JobBaseModel {
-  List<DeployEnvironment> environments = new ArrayList<>()
-}
-
-class DeployEnvironment {
-  String name
-}
