@@ -12,6 +12,9 @@ dependencies {
     // jenkinsPlugin 'com.aoe.jenkins:scm-push-trigger:1.1.0'
     jenkinsPlugin 'org.jenkins-ci.plugins:cloudbees-folder:6.4'
 
+    testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
+    testCompile 'cglib:cglib-nodep:2.2.2' // used by Spock
+
     compile('org.codehaus.groovy.modules.http-builder:http-builder:0.7.2') {
         exclude(module: 'groovy')
     }
@@ -19,6 +22,7 @@ dependencies {
     compile 'com.google.guava:guava:18.0'
     compile 'org.apache.ant:ant:1.9.7'
     compile 'commons-io:commons-io:2.4'
+    compile group: 'org.yaml', name: 'snakeyaml', version: '1.21'
 }
 
 jobDsl {

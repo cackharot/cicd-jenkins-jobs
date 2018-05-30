@@ -1,0 +1,14 @@
+name: team1
+jobs:
+- name: app1
+  repoName: cackharot/fbeazt
+  type: build
+  triggers:
+  - team1/ci/deploy-app1
+
+- name: deploy-app1
+  type: deploy
+  environments:
+  - name: ci
+  - name: dev
+  - name: qa
